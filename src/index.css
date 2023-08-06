@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@600&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: "Overpass Mono", monospace;
+  font-size: 1.2rem;
+  background-color: #1e1e1e;
+  color: #fff;
+  min-width: 320px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
