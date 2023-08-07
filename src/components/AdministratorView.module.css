@@ -1,0 +1,26 @@
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 150px);
+}
+
+.buttonsContainer a {
+  display: flex;
+  text-decoration: none;
+  color: #dadada;
+  background: rgba(94, 94, 94, 0.3);
+  border-radius: 9px;
+  border: #dadada 1px solid;
+  padding: 10px 20px;
+  width: 390px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.buttonsContainer a:hover {
+  background-color: #e2e2e2;
+  backdrop-filter: blur(10px);
+  color: #00564d;
+}

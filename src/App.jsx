@@ -6,6 +6,8 @@ import { ProtectLoginRoute } from "./routes/ProtectLoginRoute";
 import { Login } from "./pages/Login";
 import { Home } from "./pages/Home";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { ProtectAdminRoute } from "./routes/ProtectAdminRoute";
+import { EnrollCandidate } from "./components/EnrollCandidate";
 
 export const App = () => {
   return (
@@ -26,6 +28,14 @@ export const App = () => {
               <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/enrroll-candidate"
+            element={
+              <ProtectAdminRoute>
+                <EnrollCandidate />
+              </ProtectAdminRoute>
             }
           />
           <Route path="*" element={<h1>Error 404</h1>} />

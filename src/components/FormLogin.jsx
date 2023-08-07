@@ -113,7 +113,7 @@ export const FormLogin = () => {
             <div className="col-12">
               <button
                 type="submit"
-                className="btn btn-primary btn-lg w-100"
+                className="btn btn-success btn-lg w-100"
                 onClick={() => setCurrentError("")}
               >
                 Ingresar

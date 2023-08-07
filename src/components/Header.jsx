@@ -8,14 +8,10 @@ export const Header = ({ user, logout }) => {
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark"
-      style={{ background: "#2b5f8c" }}
+      style={{ background: "#00564d" }}
     >
       <div className="container">
         <Link to="/" className="navbar-brand">
-          {/* <img
-            src="/censoImg2012.png"
-            alt="Logo del Instituto Nacional de Estadística"
-          /> */}
           <h1>VotixCrypt</h1>
         </Link>
         <button
