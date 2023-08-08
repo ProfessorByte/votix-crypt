@@ -1,0 +1,30 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-gap: 20px;
+}
+
+.container button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  color: #dadada;
+  background: rgba(94, 94, 94, 0.3);
+  border-radius: 9px;
+  border: #dadada 1px solid;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.container button:hover {
+  background-color: #e2e2e2;
+  backdrop-filter: blur(10px);
+  color: #00564d;
+}

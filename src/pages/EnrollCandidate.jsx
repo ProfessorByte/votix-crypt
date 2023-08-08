@@ -1,24 +1,30 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useAuth } from "../hooks/useAuth";
-import { Header } from "./Header";
+import { Header } from "../components/Header";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../services/database";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const validate = (values) => {
   const errors = {};
 
   if (!values.name) {
     errors.name = "El nombre es requerido";
-  } else if (!values.age) {
+  }
+  if (!values.age) {
     errors.age = "La edad es requerida";
-  } else if (!values.birthPlace) {
+  }
+  if (!values.birthPlace) {
     errors.birthPlace = "El lugar de nacimiento es requerido";
-  } else if (!values.profession) {
+  }
+  if (!values.profession) {
     errors.profession = "La profesión es requerida";
-  } else if (!values.ideology) {
+  }
+  if (!values.ideology) {
     errors.ideology = "La ideología es requerida";
-  } else if (!values.politicalParty) {
+  }
+  if (!values.politicalParty) {
     errors.politicalParty = "El partido político es requerido";
   }
 
@@ -26,6 +32,7 @@ const validate = (values) => {
 };
 
 export const EnrollCandidate = () => {
+  const [creatingCandidate, setCreatingCandidate] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -40,6 +47,7 @@ export const EnrollCandidate = () => {
 
   const onSubmit = (values) => {
     const newCandidate = async () => {
+      setCreatingCandidate(true);
       await addDoc(collection(db, "candidates"), values);
       alert("Candidato inscrito");
       navigate("/", { replace: true });
@@ -66,6 +74,9 @@ export const EnrollCandidate = () => {
                 id="name"
                 name="name"
               />
+              <div className="text-danger">
+                <ErrorMessage name="name" />
+              </div>
             </div>
 
             <div className="form-group mb-3">
@@ -78,6 +89,9 @@ export const EnrollCandidate = () => {
                 min={18}
                 max={100}
               />
+              <div className="text-danger">
+                <ErrorMessage name="age" />
+              </div>
             </div>
 
             <div className="form-group mb-3">
@@ -88,6 +102,9 @@ export const EnrollCandidate = () => {
                 id="birthPlace"
                 name="birthPlace"
               />
+              <div className="text-danger">
+                <ErrorMessage name="birthPlace" />
+              </div>
             </div>
 
             <div className="form-group mb-3">
@@ -98,6 +115,9 @@ export const EnrollCandidate = () => {
                 id="profession"
                 name="profession"
               />
+              <div className="text-danger">
+                <ErrorMessage name="profession" />
+              </div>
             </div>
 
             <div className="form-group mb-3">
@@ -108,6 +128,9 @@ export const EnrollCandidate = () => {
                 id="ideology"
                 name="ideology"
               />
+              <div className="text-danger">
+                <ErrorMessage name="ideology" />
+              </div>
             </div>
 
             <div className="form-group mb-3">
@@ -118,9 +141,16 @@ export const EnrollCandidate = () => {
                 id="politicalParty"
                 name="politicalParty"
               />
+              <div className="text-danger">
+                <ErrorMessage name="politicalParty" />
+              </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={creatingCandidate}
+            >
               Inscribir partido
             </button>
           </Form>

@@ -7,7 +7,7 @@ export const AdministratorView = () => {
       <Link to="/enrroll-candidate">
         <span>Inscribir candidato</span>
       </Link>
-      <Link to="#">
+      <Link to="/candidates">
         <span>Candidatos inscritos</span>
       </Link>
       <Link to="#">

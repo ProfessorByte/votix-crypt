@@ -7,7 +7,8 @@ import { Login } from "./pages/Login";
 import { Home } from "./pages/Home";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { ProtectAdminRoute } from "./routes/ProtectAdminRoute";
-import { EnrollCandidate } from "./components/EnrollCandidate";
+import { EnrollCandidate } from "./pages/EnrollCandidate";
+import { ListCandidates } from "./pages/ListCandidates";
 
 export const App = () => {
   return (
@@ -35,6 +36,14 @@ export const App = () => {
             element={
               <ProtectAdminRoute>
                 <EnrollCandidate />
+              </ProtectAdminRoute>
+            }
+          />
+          <Route
+            path="/candidates"
+            element={
+              <ProtectAdminRoute>
+                <ListCandidates />
               </ProtectAdminRoute>
             }
           />
