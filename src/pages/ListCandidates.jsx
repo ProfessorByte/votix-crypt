@@ -15,7 +15,7 @@ export const ListCandidates = () => {
   const [candidates, setCandidates] = useState([]);
   const [currentCandidate, setCurrentCandidate] = useState(null);
   const [candidatesLoading, setCandidatesLoading] = useState(true);
-  const { user, logout } = useAuth();
+  const { user, userData, logout } = useAuth();
 
   useEffect(() => {
     const queryCandidates = query(collection(db, "candidates"));
@@ -31,7 +31,11 @@ export const ListCandidates = () => {
   return (
     <>
       <Header user={user} logout={logout} />
-      <CandidateProfileModal modalId={MODAL_ID} candidate={currentCandidate} />
+      <CandidateProfileModal
+        modalId={MODAL_ID}
+        candidate={currentCandidate}
+        userRole={userData.role}
+      />
       <div className={`container mt-5 ${styles.container}`}>
         {candidatesLoading ? (
           <Loading />

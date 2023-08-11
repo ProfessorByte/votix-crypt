@@ -1,7 +1,23 @@
 import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ADMINISTRATOR } from "../consts/roles";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../services/database";
 
-export const CandidateProfileModal = ({ modalId, candidate }) => {
+export const CandidateProfileModal = ({ modalId, candidate, userRole }) => {
+  const deleteCandidate = () => {
+    const deleteQuest = confirm(
+      "¿Está seguro que desea eliminar este candidato?"
+    );
+    if (deleteQuest) {
+      const deleteCandidateFromDb = async () => {
+        await deleteDoc(doc(db, "candidates", candidate.id));
+      };
+
+      deleteCandidateFromDb();
+    }
+  };
+
   return (
     <div
       className="modal fade"
@@ -45,6 +61,16 @@ export const CandidateProfileModal = ({ modalId, candidate }) => {
             </div>
           </div>
           <div className="modal-footer">
+            {userRole === ADMINISTRATOR && (
+              <button
+                type="button"
+                className="btn btn-danger"
+                data-bs-dismiss="modal"
+                onClick={deleteCandidate}
+              >
+                Eliminar candidato
+              </button>
+            )}
             <button
               type="button"
               className="btn btn-secondary"

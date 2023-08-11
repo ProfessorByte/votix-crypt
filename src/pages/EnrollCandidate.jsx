@@ -151,7 +151,7 @@ export const EnrollCandidate = () => {
               className="btn btn-primary"
               disabled={creatingCandidate}
             >
-              Inscribir partido
+              Inscribir candidato
             </button>
           </Form>
         </Formik>
