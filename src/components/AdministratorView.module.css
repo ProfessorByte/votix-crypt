@@ -24,3 +24,8 @@
   backdrop-filter: blur(10px);
   color: #00564d;
 }
+
+.textAux {
+  font-size: 0.96rem;
+  margin-top: 1rem;
+}
