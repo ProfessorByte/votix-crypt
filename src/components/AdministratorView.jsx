@@ -100,9 +100,14 @@ export const AdministratorView = () => {
   ) : (
     <div className={styles.buttonsContainer}>
       {!electionsStarted && (
-        <Link to="/enrroll-candidate">
-          <span>Inscribir candidato</span>
-        </Link>
+        <>
+          <Link to="/enrroll-enumerator">
+            <span>Inscribir empadronador</span>
+          </Link>
+          <Link to="/enrroll-candidate">
+            <span>Inscribir candidato</span>
+          </Link>
+        </>
       )}
       <Link to="/candidates">
         <span>Candidatos inscritos</span>

@@ -9,6 +9,7 @@ import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { ProtectAdminRoute } from "./routes/ProtectAdminRoute";
 import { EnrollCandidate } from "./pages/EnrollCandidate";
 import { ListCandidates } from "./pages/ListCandidates";
+import { EnrollEnumerator } from "./pages/EnrollEnumerator";
 
 export const App = () => {
   return (
@@ -29,6 +30,14 @@ export const App = () => {
               <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/enrroll-enumerator"
+            element={
+              <ProtectAdminRoute>
+                <EnrollEnumerator />
+              </ProtectAdminRoute>
             }
           />
           <Route
