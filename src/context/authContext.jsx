@@ -22,7 +22,9 @@ export const AuthProvider = ({ children }) => {
           setUserData(userDataSnap.data());
         }
 
-        setUser(currentUser);
+        const token = await currentUser.getIdToken();
+
+        setUser({ ...currentUser, token });
         setLoading(false);
       };
 

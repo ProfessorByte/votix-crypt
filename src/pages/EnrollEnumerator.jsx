@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/database";
+import { votixApi } from "../services/api";
 
 export const EnrollEnumerator = () => {
   const [currentPerson, setCurrentPerson] = useState(null);
@@ -51,10 +52,26 @@ export const EnrollEnumerator = () => {
   };
 
   const onSubmit = (values, actions) => {
-    console.log(values);
-    // TODO: Enviar correo electrónico con la contraseña
+    const newEnumerator = async () => {
+      try {
+        const { data } = await votixApi.post(
+          "/enroll-enumerator",
+          {
+            ...values,
+            adminId: user.uid,
+          },
+          { headers: { Authorization: `Bearer ${user.token}` } }
+        );
+        alert(data.message);
+      } catch (error) {
+        alert(
+          "Error al inscribir al empadronador, pruebe nuevamente recargando la página o contacte con el administrador"
+        );
+      }
+    };
 
-    alert("Empadronador inscrito, favor de revisar su correo electrónico");
+    newEnumerator();
+
     setCurrentPerson(null);
     actions.resetForm();
   };
