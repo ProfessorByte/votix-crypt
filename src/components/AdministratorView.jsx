@@ -1,92 +1,29 @@
 import { Link } from "react-router-dom";
 import styles from "./AdministratorView.module.css";
 import { useEffect, useState } from "react";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  limit,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../services/database";
 import { Loading } from "./Loading";
 import { useAuth } from "../hooks/useAuth";
 import { Countdown } from "./Countdown";
+import { useElectionsState } from "../hooks/useElectionsState";
+import { useElectionsTime } from "../hooks/useElectionsTime";
 
 export const AdministratorView = () => {
   const { user } = useAuth();
-  const [electionsStarted, setElectionsStarted] = useState(false);
+  const { timeLeft } = useElectionsTime();
+  const { electionsStarted, loadingElectionsData } = useElectionsState();
   const [electoralAuthorization, setElectoralAuthorization] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [loadingElectionsData, setLoadingElectionsData] = useState(true);
   const [loadingElecAuth, setLoadingElecAuth] = useState(true);
 
   useEffect(() => {
-    const queryElectoralAuth = query(
-      collection(db, "users"),
-      where("role", "==", "admin")
-    );
-    const unsuscribeElecStart = onSnapshot(
-      queryElectoralAuth,
-      (querySnapshot) => {
-        let flagAuth = true;
-        querySnapshot.forEach((doc) => {
-          if (!doc.data().electoralAuthorization) {
-            flagAuth = false;
-          }
-        });
-        setElectionsStarted(flagAuth);
-        setLoadingElectionsData(false);
-      }
-    );
-
     const unsuscribeElecAuth = onSnapshot(doc(db, "users", user.uid), (doc) => {
       setElectoralAuthorization(doc.data().electoralAuthorization);
       setLoadingElecAuth(false);
     });
 
-    return () => {
-      unsuscribeElecStart();
-      unsuscribeElecAuth();
-    };
+    return unsuscribeElecAuth;
   }, []);
-
-  useEffect(() => {
-    if (electionsStarted) {
-      const getElectionsData = async () => {
-        const queryCurrentElections = query(
-          collection(db, "elections"),
-          where("current", "==", true),
-          limit(1)
-        );
-        const queryCurrentElectionsSnapshot = await getDocs(
-          queryCurrentElections
-        );
-        try {
-          const electionData = queryCurrentElectionsSnapshot.docs[0].data();
-          setTimeLeft(
-            electionData.startTimestamp + 8 * 60 * 60 * 1000 - Date.now()
-          );
-        } catch (error) {
-          console.log(error);
-          const currentTime = Date.now();
-          await addDoc(collection(db, "elections"), {
-            current: true,
-            candidates: [],
-            votes: [],
-            startTimestamp: currentTime,
-          });
-          setTimeLeft(currentTime + 8 * 60 * 60 * 1000 - Date.now());
-        }
-      };
-
-      getElectionsData();
-    }
-  }, [electionsStarted]);
 
   const updateAuth = async (authValue) => {
     const userDataRef = doc(db, "users", user.uid);
