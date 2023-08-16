@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./AdministratorView.module.css";
+import styles from "./FirstViews.module.css";
 import { useEffect, useState } from "react";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../services/database";

@@ -9,7 +9,8 @@ import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { ProtectAdminRoute } from "./routes/ProtectAdminRoute";
 import { EnrollCandidate } from "./pages/EnrollCandidate";
 import { ListCandidates } from "./pages/ListCandidates";
-import { EnrollEnumerator } from "./pages/EnrollEnumerator";
+import { ProtectEnumRoute } from "./routes/ProtectEnumRoute";
+import { EnrollPerson } from "./pages/EnrollPerson";
 
 export const App = () => {
   return (
@@ -33,10 +34,18 @@ export const App = () => {
             }
           />
           <Route
+            path="/enrroll-voter"
+            element={
+              <ProtectEnumRoute>
+                <EnrollPerson endPoint="/enroll-voter" />
+              </ProtectEnumRoute>
+            }
+          />
+          <Route
             path="/enrroll-enumerator"
             element={
               <ProtectAdminRoute>
-                <EnrollEnumerator />
+                <EnrollPerson endPoint="/enroll-enumerator" />
               </ProtectAdminRoute>
             }
           />
@@ -51,9 +60,9 @@ export const App = () => {
           <Route
             path="/candidates"
             element={
-              <ProtectAdminRoute>
+              <ProtectedRoute>
                 <ListCandidates />
-              </ProtectAdminRoute>
+              </ProtectedRoute>
             }
           />
           <Route path="*" element={<h1>Error 404</h1>} />

@@ -1,15 +1,19 @@
-import { useRef, useState } from "react";
 import { Header } from "../components/Header";
 import { useAuth } from "../hooks/useAuth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../services/database";
 import { votixApi } from "../services/api";
+import { useSearchPerson } from "../hooks/useSearchPerson";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../services/database";
 
-export const EnrollEnumerator = () => {
-  const [currentPerson, setCurrentPerson] = useState(null);
-  const [loadingSearch, setLoadingSearch] = useState(false);
-  const ciRef = useRef();
+export const EnrollPerson = ({ endPoint }) => {
+  const {
+    currentPerson,
+    setCurrentPerson,
+    loadingSearch,
+    handleSearch,
+    ciRef,
+  } = useSearchPerson();
   const { user, logout } = useAuth();
 
   const initialValues = {
@@ -17,35 +21,17 @@ export const EnrollEnumerator = () => {
     email: "",
   };
 
-  const handleSearch = () => {
-    const getPerson = async () => {
-      setCurrentPerson(null);
-      setLoadingSearch(true);
-      const { value: ci } = ciRef.current;
-
-      try {
-        const personRef = doc(db, "voter-data", ci);
-        const personSnap = await getDoc(personRef);
-
-        if (!personSnap.exists()) {
-          alert("No se encontró a la persona");
-        } else {
-          setCurrentPerson({ ...personSnap.data(), ci: ci });
-        }
-      } catch (error) {
-        alert("Error al buscar a la persona");
-      }
-      setLoadingSearch(false);
-    };
-
-    getPerson();
-  };
-
   const validate = (values) => {
     const errors = {};
 
     if (!values.email) {
-      errors.email = "Se debe ingresar un correo electrónico válido";
+      errors.email = "Se requiere un correo electrónico";
+    } else if (
+      !/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(
+        values.email
+      )
+    ) {
+      errors.email = "El correo electrónico no es válido";
     }
 
     return errors;
@@ -55,17 +41,20 @@ export const EnrollEnumerator = () => {
     const newEnumerator = async () => {
       try {
         const { data } = await votixApi.post(
-          "/enroll-enumerator",
+          endPoint,
           {
             ...values,
-            adminId: user.uid,
+            userId: user.uid,
           },
           { headers: { Authorization: `Bearer ${user.token}` } }
         );
+        if (data.enrolled) {
+          await sendPasswordResetEmail(auth, values.email);
+        }
         alert(data.message);
       } catch (error) {
         alert(
-          "Error al inscribir al empadronador, pruebe nuevamente recargando la página o contacte con el administrador"
+          "Error al realizar la inscripción, pruebe nuevamente recargando la página o contacte con el administrador"
         );
       }
     };
@@ -151,7 +140,7 @@ export const EnrollEnumerator = () => {
                     </div>
 
                     <button type="submit" className="btn btn-primary">
-                      Inscribir empadronador
+                      Realizar inscripción
                     </button>
                   </div>
                 </div>
