@@ -8,10 +8,12 @@ import { useAuth } from "../hooks/useAuth";
 import { Countdown } from "./Countdown";
 import { useElectionsState } from "../hooks/useElectionsState";
 import { useElectionsTime } from "../hooks/useElectionsTime";
+import { useCurrentElection } from "../hooks/useCurrentElection";
 
 export const AdministratorView = () => {
   const { user } = useAuth();
   const { timeLeft } = useElectionsTime();
+  const { currentElection } = useCurrentElection();
   const { electionsStarted, loadingElectionsData } = useElectionsState();
   const [electoralAuthorization, setElectoralAuthorization] = useState(false);
   const [loadingElecAuth, setLoadingElecAuth] = useState(true);
@@ -53,6 +55,7 @@ export const AdministratorView = () => {
         <span>Resultados electorales</span>
       </Link>
       {!electionsStarted &&
+        currentElection &&
         (!electoralAuthorization ? (
           <button
             type="button"

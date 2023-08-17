@@ -2,11 +2,13 @@ import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { ENUMERATOR } from "../consts/roles";
+import { useElectionsState } from "../hooks/useElectionsState";
 
 export const ProtectEnumRoute = ({ children }) => {
   const { user, userData, loading } = useAuth();
+  const { electionsStarted, loadingElectionsData } = useElectionsState();
 
-  if (loading) {
+  if (loading || loadingElectionsData) {
     return <Loading />;
   }
 
@@ -14,7 +16,7 @@ export const ProtectEnumRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  if (userData.role !== ENUMERATOR) {
+  if (userData.role !== ENUMERATOR || electionsStarted) {
     return <Navigate to="/" />;
   }
 

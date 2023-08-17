@@ -48,8 +48,14 @@ export const AuthProvider = ({ children }) => {
     signOut(auth);
   };
 
+  const markVote = () => {
+    setUserData({ ...userData, vote: true });
+  };
+
   return (
-    <authContext.Provider value={{ login, logout, loading, user, userData }}>
+    <authContext.Provider
+      value={{ login, logout, loading, user, userData, markVote }}
+    >
       {children}
     </authContext.Provider>
   );

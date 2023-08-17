@@ -1,10 +1,21 @@
 import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ADMINISTRATOR } from "../consts/roles";
+import { ADMINISTRATOR, ENUMERATOR, VOTER } from "../consts/roles";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../services/database";
+import { useElectionsState } from "../hooks/useElectionsState";
+import { useAuth } from "../hooks/useAuth";
+import { useCurrentElection } from "../hooks/useCurrentElection";
 
-export const CandidateProfileModal = ({ modalId, candidate, userRole }) => {
+export const CandidateProfileModal = ({
+  modalId,
+  candidate,
+  voteForCandidate,
+}) => {
+  const { electionsStarted } = useElectionsState();
+  const { userData } = useAuth();
+  const { currentElection } = useCurrentElection();
+
   const deleteCandidate = () => {
     const deleteQuest = confirm(
       "¿Está seguro que desea eliminar este candidato?"
@@ -61,7 +72,20 @@ export const CandidateProfileModal = ({ modalId, candidate, userRole }) => {
             </div>
           </div>
           <div className="modal-footer">
-            {userRole === ADMINISTRATOR && (
+            {(userData.role === ENUMERATOR || userData.role === VOTER) &&
+              electionsStarted &&
+              currentElection &&
+              !userData.vote && (
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  data-bs-dismiss="modal"
+                  onClick={() => voteForCandidate()}
+                >
+                  Votar por este candidato
+                </button>
+              )}
+            {userData.role === ADMINISTRATOR && (
               <button
                 type="button"
                 className="btn btn-danger"

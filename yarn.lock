@@ -1106,6 +1106,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
+bigint-crypto-utils@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/bigint-crypto-utils/-/bigint-crypto-utils-3.3.0.tgz#72ad00ae91062cf07f2b1def9594006c279c1d77"
+  integrity sha512-jOTSb+drvEDxEq6OuUybOAv/xxoh3cuYRUIPyu8sSHQNKM303UQ2R1DAo45o1AkcIXw6fzbaFI1+xGGdaXs2lg==
+
 bootstrap@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.1.tgz#8ca07040ad15d7f75891d1504cf14c5dedfb1cfe"
@@ -2244,6 +2249,13 @@ p-locate@^5.0.0:
   integrity sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==
   dependencies:
     p-limit "^3.0.2"
+
+paillier-bigint@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/paillier-bigint/-/paillier-bigint-3.4.3.tgz#6de37d6a334540298aeff633a9a5268b32ec7bb6"
+  integrity sha512-82otV7H/gBiQeYjsmc/Zo029GoJDnAFyoMWQMsUgfya50W8dYRVgvUR/lHO0yrS7MfMwgE8fCeEIBF0IucLYFw==
+  dependencies:
+    bigint-crypto-utils "^3.3.0"
 
 parent-module@^1.0.0:
   version "1.0.1"
