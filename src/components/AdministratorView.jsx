@@ -5,14 +5,11 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../services/database";
 import { Loading } from "./Loading";
 import { useAuth } from "../hooks/useAuth";
-import { Countdown } from "./Countdown";
 import { useElectionsState } from "../hooks/useElectionsState";
-import { useElectionsTime } from "../hooks/useElectionsTime";
 import { useCurrentElection } from "../hooks/useCurrentElection";
 
 export const AdministratorView = () => {
   const { user } = useAuth();
-  const { timeLeft } = useElectionsTime();
   const { currentElection } = useCurrentElection();
   const { electionsStarted, loadingElectionsData } = useElectionsState();
   const [electoralAuthorization, setElectoralAuthorization] = useState(false);
@@ -75,9 +72,6 @@ export const AdministratorView = () => {
         ))}
       {electionsStarted && (
         <span className={styles.textAux}>Elecciones en curso...</span>
-      )}
-      {electionsStarted && timeLeft > 0 && (
-        <Countdown secondsLeft={Math.floor(timeLeft / 1000)} />
       )}
     </div>
   );

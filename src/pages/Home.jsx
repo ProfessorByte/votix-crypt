@@ -1,5 +1,5 @@
 import { AdministratorView } from "../components/AdministratorView";
-import { EnumeratorView } from "../components/EnumeratorView";
+import { EnumVoterView } from "../components/EnumVoterView";
 import { Header } from "../components/Header";
 import { ADMINISTRATOR, ENUMERATOR, VOTER } from "../consts/roles";
 import { useAuth } from "../hooks/useAuth";
@@ -9,8 +9,8 @@ export const Home = () => {
 
   const userViews = {
     [ADMINISTRATOR]: <AdministratorView />,
-    [ENUMERATOR]: <EnumeratorView />,
-    [VOTER]: <h1>Votante</h1>,
+    [ENUMERATOR]: <EnumVoterView />,
+    [VOTER]: <EnumVoterView />,
     // [CANDIDATE]: <h1>Candidato</h1>,
   };
 
