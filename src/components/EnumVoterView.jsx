@@ -23,9 +23,11 @@ export const EnumVoterView = () => {
       <Link to="/candidates">
         <span>Candidatos disponibles</span>
       </Link>
-      <Link to="#">
-        <span>Resultados electorales</span>
-      </Link>
+      {currentElection?.results?.length > 0 && (
+        <Link to="/results">
+          <span>Resultados electorales</span>
+        </Link>
+      )}
       {electionsStarted && !currentElection?.endTimestamp && (
         <span className={styles.textAux}>Elecciones en curso...</span>
       )}

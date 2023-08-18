@@ -47,9 +47,11 @@ export const AdvancedAdmin = () => {
       <Link to="/candidates">
         <span>Candidatos disponibles</span>
       </Link>
-      <Link to="#">
-        <span>Resultados electorales</span>
-      </Link>
+      {currentElection?.results?.length > 0 && (
+        <Link to="/results">
+          <span>Resultados electorales</span>
+        </Link>
+      )}
       {!currentElection || currentElection?.resultsProcessed ? (
         <button type="button" className="btn btn-success">
           Iniciar nuevas elecciones

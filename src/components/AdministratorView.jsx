@@ -48,9 +48,11 @@ export const AdministratorView = () => {
       <Link to="/candidates">
         <span>Candidatos inscritos</span>
       </Link>
-      <Link to="#">
-        <span>Resultados electorales</span>
-      </Link>
+      {currentElection?.results?.length > 0 && (
+        <Link to="/results">
+          <span>Resultados electorales</span>
+        </Link>
+      )}
       {!electionsStarted &&
         currentElection &&
         (!electoralAuthorization ? (

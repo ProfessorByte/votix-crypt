@@ -11,6 +11,7 @@ import { EnrollCandidate } from "./pages/EnrollCandidate";
 import { ListCandidates } from "./pages/ListCandidates";
 import { ProtectEnumRoute } from "./routes/ProtectEnumRoute";
 import { EnrollPerson } from "./pages/EnrollPerson";
+import { Results } from "./pages/Results";
 
 export const App = () => {
   return (
@@ -62,6 +63,14 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <ListCandidates />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/results"
+            element={
+              <ProtectedRoute>
+                <Results />
               </ProtectedRoute>
             }
           />
