@@ -70,7 +70,7 @@ export const AdministratorView = () => {
             Cancelar autorización de elecciones
           </button>
         ))}
-      {electionsStarted && (
+      {electionsStarted && !currentElection?.endTimestamp && (
         <span className={styles.textAux}>Elecciones en curso...</span>
       )}
     </div>

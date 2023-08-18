@@ -111,7 +111,7 @@ export const ListCandidates = () => {
           <>
             {(userData.role === ENUMERATOR || userData.role === VOTER) &&
               electionsStarted &&
-              currentElection &&
+              !currentElection?.endTimestamp &&
               !userData.vote && (
                 <div className="row px-2">
                   <button

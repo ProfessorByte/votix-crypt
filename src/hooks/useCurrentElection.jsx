@@ -9,7 +9,14 @@ export const useCurrentElection = () => {
     const unsuscribeElecAuth = onSnapshot(
       query(collection(db, "elections"), where("current", "==", true)),
       (querySnapshot) => {
-        setCurrentElection(querySnapshot.docs[0]?.data());
+        setCurrentElection(
+          querySnapshot.docs[0]
+            ? {
+                ...querySnapshot.docs[0]?.data(),
+                id: querySnapshot.docs[0]?.id,
+              }
+            : null
+        );
       }
     );
 

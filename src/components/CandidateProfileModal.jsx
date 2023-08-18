@@ -74,7 +74,7 @@ export const CandidateProfileModal = ({
           <div className="modal-footer">
             {(userData.role === ENUMERATOR || userData.role === VOTER) &&
               electionsStarted &&
-              currentElection &&
+              !currentElection?.endTimestamp &&
               !userData.vote && (
                 <button
                   type="button"

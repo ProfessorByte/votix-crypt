@@ -1,7 +1,13 @@
 import { AdministratorView } from "../components/AdministratorView";
+import { AdvancedAdmin } from "../components/AdvancedAdmin";
 import { EnumVoterView } from "../components/EnumVoterView";
 import { Header } from "../components/Header";
-import { ADMINISTRATOR, ENUMERATOR, VOTER } from "../consts/roles";
+import {
+  ADMINISTRATOR,
+  ADVANCED_ADMINISTRATOR,
+  ENUMERATOR,
+  VOTER,
+} from "../consts/roles";
 import { useAuth } from "../hooks/useAuth";
 
 export const Home = () => {
@@ -11,7 +17,7 @@ export const Home = () => {
     [ADMINISTRATOR]: <AdministratorView />,
     [ENUMERATOR]: <EnumVoterView />,
     [VOTER]: <EnumVoterView />,
-    // [CANDIDATE]: <h1>Candidato</h1>,
+    [ADVANCED_ADMINISTRATOR]: <AdvancedAdmin />,
   };
 
   return (
