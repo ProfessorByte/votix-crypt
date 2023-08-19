@@ -12,6 +12,7 @@ import { ListCandidates } from "./pages/ListCandidates";
 import { ProtectEnumRoute } from "./routes/ProtectEnumRoute";
 import { EnrollPerson } from "./pages/EnrollPerson";
 import { Results } from "./pages/Results";
+import { VerifyVote } from "./pages/VerifyVote";
 
 export const App = () => {
   return (
@@ -74,6 +75,7 @@ export const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/verify-vote" element={<VerifyVote />} />
           <Route path="*" element={<h1>Error 404</h1>} />
         </Routes>
       </AuthProvider>

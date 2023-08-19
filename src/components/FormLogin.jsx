@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 import styles from "./FormLogin.module.css";
@@ -120,6 +120,14 @@ export const FormLogin = () => {
               </button>
             </div>
           </div>
+
+          <Link
+            to="/verify-vote"
+            className="link-dark mt-3 d-flex justify-content-center"
+            style={{ textDecoration: "underline" }}
+          >
+            Verificar voto
+          </Link>
         </Form>
       </Formik>
     </div>
